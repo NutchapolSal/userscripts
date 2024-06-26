@@ -39,16 +39,12 @@ async function compressify(str) {
         const tagString = (Math.random() + 1).toString(36).slice(2,4)
         const stuff = []
         const tagsMap = new Map()
-        const tabs = document.querySelector("ul[role='tablist']").children
-        const panes = document.querySelector("div.tab-content.text-center").children
-        for (let i = 0; i < panes.length; i++) {
-            const tab = tabs[i]
-            const pane = panes[i]
-            const innerStuff = {type: tab.innerText, list: []}
-            for (const tierHeader of pane.querySelectorAll("div > h3")) {
-                const tierItems = tierHeader.parentElement.children[1].children
-                for (const item of tierItems) {
-                    const tags = item.children[0].children[0].children[0].children
+        const tabs = document.querySelectorAll('ul.nav-tabs a')
+        for (const tab of tabs) {
+            tab.click()
+            for (const tierBlock of document.querySelectorAll('div.card-body div:has( > h3.title)')) {
+                for (const item of tierBlock.querySelectorAll("div.col-4")) {
+                    const tags = item.querySelector("div.row > div.col > div").children
                     const tagTexts = []
                     for (const tag of tags) {
                         const tip = tag.dataset.tip
@@ -58,7 +54,7 @@ async function compressify(str) {
                         }
                         tagTexts.push(tip)
                     }
-                    stuff.push({type: tab.innerText, name: item.children[2].textContent, tags: tagTexts, tier: tierHeader.textContent.slice(5)})
+                    stuff.push({type: tab.textContent, name: item.querySelector("p").textContent, tags: tagTexts, tier: tierBlock.querySelector("h3").textContent.slice(5)})
                 }
             }
         }
