@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         tier list taker
 // @namespace    http://n.yla0.icu/
-// @version      2024-01-15
+// @version      2024-08-15
 // @description  copy the tier list data in json
 // @author       NutchapolSal
 // @match        https://slaimuda.github.io/ectl/
@@ -9,6 +9,9 @@
 // @grant        none
 // ==/UserScript==
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms))
+}
 
 function bytesToBase64(bytes) {
   const binString = String.fromCodePoint(...(new Uint8Array(bytes)));
@@ -35,13 +38,14 @@ async function compressify(str) {
     copyButton.style.bottom = "20px"
     copyButton.style.cursor = "pointer"
 
-    function takeData() {
+    async function takeData() {
         const tagString = (Math.random() + 1).toString(36).slice(2,4)
         const stuff = []
         const tagsMap = new Map()
         const tabs = document.querySelectorAll('ul.nav-tabs a')
         for (const tab of tabs) {
             tab.click()
+            await sleep(250)
             for (const tierBlock of document.querySelectorAll('div.card-body div:has( > h3.title)')) {
                 for (const item of tierBlock.querySelectorAll("div.col-4")) {
                     const tags = item.querySelector("div.row > div.col > div").children
