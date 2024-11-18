@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ExSearch
 // @namespace    http://n.yla0.icu/
-// @version      2024-02-16
+// @version      2024-11-18
 // @description  try to take over the tags
 // @author       NutchapolSal
 // @match        https://*.donmai.us/*
@@ -70,7 +70,11 @@ async function doSearchThing(stuff) {
 
     const articlesList = document.getElementsByTagName('article')
     for (let v of articlesList) {
-        const vTags = v.getAttribute('data-tags').split(' ')
+        const vTagsString = v.getAttribute('data-tags')
+        if (vTagsString == null) {
+            continue
+        }
+        const vTags = vTags.split(' ')
         let searchMatch = true
         for (let q of queryList) {
             let searchTag = q
