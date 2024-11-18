@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ExSearch
 // @namespace    http://n.yla0.icu/
-// @version      2024-11-18
+// @version      2024-11-18.1
 // @description  try to take over the tags
 // @author       NutchapolSal
 // @match        https://*.donmai.us/*
@@ -74,7 +74,7 @@ async function doSearchThing(stuff) {
         if (vTagsString == null) {
             continue
         }
-        const vTags = vTags.split(' ')
+        const vTags = vTagsString.split(' ')
         let searchMatch = true
         for (let q of queryList) {
             let searchTag = q
