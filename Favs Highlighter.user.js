@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Favs Highlighter
 // @namespace    http://n.yla0.icu/
-// @version      2024-04-03
+// @version      2025-02-08
 // @description  try to highlight all the favs
 // @author       NutchapolSal
 // @match        https://*.donmai.us/*
@@ -93,7 +93,7 @@ function checkMissing(favSearch,favsIdMap) {
         maxKey = Math.max(parsedKey, maxKey)
     }
 
-    if (document.location.pathname == '/posts') {
+    if (document.location.pathname == '/posts' || document.location.pathname == '/') {
         console.log('getting favs')
         while (true) {
             const favSearch = await requestFavorites(userId, `a${maxKey}`)
